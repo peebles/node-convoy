@@ -36,8 +36,84 @@ convoy.snapshotCreate({
 ## API
 
 ### info( cb ) - get general driver information
+**returns something like**
+```javascript
+{
+  "General": {
+    "Root": "/var/lib/rancher/convoy",
+    "DriverList": [
+      "devicemapper"
+    ],
+    "DefaultDriver": "devicemapper",
+    "MountNamespaceFD": "",
+    "IgnoreDockerDelete": false,
+    "CreateOnDockerMount": false,
+    "CmdTimeout": ""
+  },
+  "devicemapper": {
+    "DataDevice": "/dev/xvdh1",
+    "DefaultVolumeSize": "107374182400",
+    "Driver": "devicemapper",
+    "Filesystem": "ext4",
+    "MetadataDevice": "/dev/xvdh2",
+    "Root": "/var/lib/rancher/convoy/devicemapper",
+    "ThinpoolBlockSize": "2097152",
+    "ThinpoolDevice": "/dev/mapper/convoy-pool",
+    "ThinpoolSize": "107330507264"
+  }
+}
+```
 
 ### volumes( cb ) - list all volumes
+**returns something like**
+```javascript
+{
+  "test_volume": {
+    "Name": "test_volume",
+    "Driver": "devicemapper",
+    "MountPoint": "/var/lib/rancher/convoy/devicemapper/mounts/test_volume",
+    "CreatedTime": "Sun Feb 19 19:40:31 +0000 2017",
+    "DriverInfo": {
+      "DevID": "1",
+      "Device": "/dev/mapper/test_volume",
+      "Driver": "devicemapper",
+      "Filesystem": "ext4",
+      "MountPoint": "/var/lib/rancher/convoy/devicemapper/mounts/test_volume",
+      "Size": "107374182400",
+      "VolumeCreatedAt": "Sun Feb 19 19:40:31 +0000 2017",
+      "VolumeName": "test_volume"
+    },
+    "Snapshots": {
+      "snap1": {
+        "Name": "snap1",
+        "CreatedTime": "Sun Feb 19 20:00:13 +0000 2017",
+        "DriverInfo": {
+          "DevID": "2",
+          "Driver": "devicemapper",
+          "Size": "107374182400",
+          "SnapshotCreatedAt": "Sun Feb 19 20:00:13 +0000 2017",
+          "SnapshotName": "snap1",
+          "UUID": "snap1",
+          "VolumeUUID": "test_volume"
+        }
+      },
+      "snap2": {
+        "Name": "snap2",
+        "CreatedTime": "Sun Feb 19 20:21:27 +0000 2017",
+        "DriverInfo": {
+          "DevID": "3",
+          "Driver": "devicemapper",
+          "Size": "107374182400",
+          "SnapshotCreatedAt": "Sun Feb 19 20:21:27 +0000 2017",
+          "SnapshotName": "snap2",
+          "UUID": "snap2",
+          "VolumeUUID": "test_volume"
+        }
+      }
+    }
+  }
+}
+```
 
 ### volumeCreate( args, cb )
 ```javascript
