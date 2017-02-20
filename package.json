@@ -1,0 +1,30 @@
+{
+  "name": "node-convoy",
+  "version": "0.0.1",
+  "description": "Node access to Convoy API through convoy.sock",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peebles/node-convoy.git"
+  },
+  "keywords": [
+    "convoy",
+    "docker",
+    "data",
+    "volume",
+    "plugin",
+    "api"
+  ],
+  "author": "Andrew Peebles",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peebles/node-convoy/issues"
+  },
+  "homepage": "https://github.com/peebles/node-convoy#readme",
+  "dependencies": {
+    "request": "^2.79.0"
+  }
+}
