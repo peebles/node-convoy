@@ -1,6 +1,6 @@
 {
   "name": "node-convoy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Node access to Convoy API through convoy.sock",
   "main": "index.js",
   "scripts": {

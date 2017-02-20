@@ -58,7 +58,7 @@ class Convoy {
     // {
     //   Name           string
     //   DriverName     string (eg: ebs, devicemapper, vfs)
-    //   Size           string (eg: "40G", "500M")
+    //   Size           string (eg: "40G", "500M" or "107374182400")
     //   BackupURL      string (create a volume from a backup)
     //   DriverVolumeID string (??)
     //   Type           string (driver-specific type)
@@ -66,21 +66,27 @@ class Convoy {
     //   PrepareForVM   bool   (??)
     // }
     args.Verbose = true; // or you don't get JSON response
-    if ( ! args.Size ) return cb( new Error( 'Size is required' ) );
-    let m = args.Size.toLowerCase().match( /^([0-9]+)([kmgt])$/ );
-    if ( ! m ) return cb( new Error( 'Size format not recognized: must be a string like "40G"' ) );
-    let size = Number( m[1] );
-    let kb = 1024;
-    let mb = 1024 * kb;
-    let gb = 1024 * mb;
-    let tb = 1024 * gb;
-    switch( m[2] ) {
-      case 'k': size *= kb; break;
-      case 'm': size *= mb; break;
-      case 'g': size *= gb; break;
-      case 't': size *= tb; break;
+    if ( args.Size ) {
+      if ( ! args.Size.match( /^[0-9]+$/ ) ) {
+	let m = args.Size.toLowerCase().match( /^([0-9]+)([kmgt])$/ );
+	if ( ! m ) return cb( new Error( 'Size format not recognized: must be a string like "40G"' ) );
+	let size = Number( m[1] );
+	let kb = 1024;
+	let mb = 1024 * kb;
+	let gb = 1024 * mb;
+	let tb = 1024 * gb;
+	switch( m[2] ) {
+	  case 'k': size *= kb; break;
+	  case 'm': size *= mb; break;
+	  case 'g': size *= gb; break;
+	  case 't': size *= tb; break;
+	}
+	args.Size = size;
+      }
+      else {
+	args.Size = Number( args.Size );
+      }
     }
-    args.Size = size;
     this._request( 'POST', '/volumes/create', args, cb );
   }
 
